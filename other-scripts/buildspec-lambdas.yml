@@ -1,0 +1,17 @@
+version: 0.2
+
+# P1 (CodePipeline -> CodeBuild): zip each Lambda in lambda-functions/ and
+# push it to the live functions. CodeBuild role needs lambda:UpdateFunctionCode.
+phases:
+  build:
+    commands:
+      - cd lambda-functions/index-photos && zip -r ../../index-photos.zip . && cd ../..
+      - cd lambda-functions/search-photos && zip -r ../../search-photos.zip . && cd ../..
+      # --query keeps the output to name + timestamp (env vars hold secrets)
+      - aws lambda update-function-code --function-name index-photos --zip-file fileb://index-photos.zip --query '[FunctionName,LastModified]' --output text
+      - aws lambda update-function-code --function-name search-photos --zip-file fileb://search-photos.zip --query '[FunctionName,LastModified]' --output text
+
+artifacts:
+  files:
+    - index-photos.zip
+    - search-photos.zip

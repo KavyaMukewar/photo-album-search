@@ -1,0 +1,14 @@
+version: 0.2
+
+# P2 (CodePipeline -> CodeBuild -> S3 deploy): package only the front-end/
+# folder so the S3 deploy action publishes it at the bucket root.
+phases:
+  build:
+    commands:
+      - echo "Packaging front-end for S3 static hosting"
+      - ls -R front-end | head -20
+
+artifacts:
+  base-directory: front-end
+  files:
+    - '**/*'
