@@ -1,4 +1,4 @@
-# AI Photo Search — Cloud Computing & Big Data, Assignment 3
+# AI Photo Search — Cloud Computing & Big Data, Assignment 3, Fall 2026
 
 A photo album web app searchable in natural language ("show me dogs and trees").
 Photos are labelled automatically by Amazon Rekognition (plus optional custom labels),
